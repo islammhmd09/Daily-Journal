@@ -59,7 +59,7 @@ export function Write({ initialDate }: { initialDate?: string }) {
     try {
       await journalRepo.save({ id: date, date, ...clean, createdAt: existing?.createdAt ?? now, updatedAt: now });
       setStatus('saved');
-      setTimeout(() => { location.hash = '#/history'; }, 900);
+      setTimeout(() => { if (location.hash.startsWith('#/write')) location.hash = '#/history'; }, 900); // not if you already left
     } catch {
       setStatus('error');
     }

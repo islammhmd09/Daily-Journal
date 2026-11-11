@@ -32,3 +32,10 @@ and swap it in for `journalRepo`. No screen needs to change.
 New screen: add a file in src/screens/ and a route line in src/App.tsx.
 New field: add it to JournalEntry, Write.tsx, History.tsx and both dictionaries.
 New language: add a dictionary in i18n.tsx and extend the Lang type.
+
+## v2: To-Do list + cloud sync
+- `#/tasks` Kick Off Your Day: single tasks, project groups, time slots, long-term (daily) tasks, partial/complete status.
+- `#/sync` account + sync. Needs a free Supabase project: run `supabase/schema.sql`, then set
+  `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (see `.env.example`, and in Vercel project settings).
+- Sync is local-first: the app works offline and merges by "latest edit wins". Engine: `src/syncCore.ts` (tested with `npm test`).
+- New feature that should sync? Create its local repository like `src/taskStorage.ts` and call `registerStore('<kind>', ...)`.

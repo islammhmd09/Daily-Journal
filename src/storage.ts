@@ -1,4 +1,5 @@
 import type { JournalEntry } from './types';
+import { markRemoved, markSaved, registerStore } from './sync';
 
 /**
  * Storage contract. The UI only talks to this interface, so moving to a cloud
@@ -40,7 +41,7 @@ function run<T>(mode: IDBTransactionMode, fn: (s: IDBObjectStore) => IDBRequest<
   );
 }
 
-export const journalRepo: JournalRepository = {
+const local: JournalRepository = {
   async list() {
     const all = await run<JournalEntry[]>('readonly', (s) => s.getAll());
     return all.sort((a, b) => b.date.localeCompare(a.date));
@@ -60,3 +61,17 @@ export const journalRepo: JournalRepository = {
         })
     ),
 };
+
+/** Same repository as before; every change is now also tracked for cloud sync. */
+export const journalRepo: JournalRepository = {
+  ...local,
+  async save(entry) { await local.save(entry); markSaved('journal', entry.id); },
+  async remove(date) { await local.remove(date); markRemoved('journal', date); },
+  async putMany(entries) { await local.putMany(entries); entries.forEach((e) => markSaved('journal', e.id)); },
+};
+
+registerStore('journal', {
+  all: () => local.list(),
+  put: (items) => local.putMany(items as JournalEntry[]),
+  del: (id) => local.remove(id),
+});

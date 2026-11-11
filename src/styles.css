@@ -69,3 +69,53 @@ input:focus, textarea:focus { border-color: var(--g4); box-shadow: 0 0 0 3px #22
 .tools { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
 
 @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+
+/* ================= v2: header icons, to-do, sync ================= */
+.icon-btn { position: relative; display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; text-decoration: none; }
+.icon-btn:hover { color: var(--g2); background: var(--s2); }
+.bar nav .icon-btn { padding: 0; color: var(--muted); }
+.bar nav .icon-btn[aria-current=page] { color: #04130a; background: var(--g4); border-color: var(--g4); }
+.icon-btn .dot { position: absolute; top: 5px; inset-inline-end: 5px; width: 10px; height: 10px; border-radius: 50%; background: #5d7667; border: 2px solid var(--bg); }
+.dot.on { background: var(--g3); }
+.dot.err { background: var(--danger); }
+.dot.busy { background: var(--g3); animation: pulse .8s infinite alternate; }
+@keyframes pulse { to { opacity: .25; } }
+[dir=rtl] .flip { transform: scaleX(-1); }
+
+input[type=text], input[type=time], input[type=email], input[type=password] { width: 100%; background: var(--s2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; outline: none; }
+input:disabled { opacity: .5; }
+
+.daynav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.daylabel { display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.4; }
+.progress { padding: 14px 18px; }
+.track { height: 10px; border-radius: 99px; background: var(--s2); border: 1px solid var(--line); overflow: hidden; }
+.fill { height: 100%; background: linear-gradient(90deg, var(--g5), var(--g3)); transition: width .3s; }
+.progress .muted { margin-top: 8px; }
+.add-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; margin-bottom: 14px; border: 1px dashed var(--g5); border-radius: 18px; background: transparent; color: var(--g2); font-weight: 600; cursor: pointer; }
+.add-btn:hover { background: var(--s1); }
+
+.sec { display: flex; align-items: center; gap: 8px; color: var(--g3); font-size: 1rem; margin: 22px 0 8px; }
+.sec .count { margin-inline-start: auto; color: var(--muted); font-size: .85rem; }
+.tasklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.task { display: flex; gap: 12px; align-items: flex-start; background: var(--s1); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; }
+.task.done .task-title { text-decoration: line-through; color: var(--muted); }
+.check { flex: none; width: 28px; height: 28px; margin-top: 2px; padding: 0; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--g5); background: transparent; color: #04130a; cursor: pointer; }
+.check[data-state=partial] { background: linear-gradient(90deg, var(--g4) 50%, transparent 50%); }
+[dir=rtl] .check[data-state=partial] { background: linear-gradient(270deg, var(--g4) 50%, transparent 50%); }
+.check[data-state=done] { background: var(--g4); border-color: var(--g4); }
+.task-main { flex: 1; min-width: 0; }
+.task-title { font-weight: 600; overflow-wrap: anywhere; }
+.task-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 0 10px; border-radius: 99px; background: var(--s2); border: 1px solid var(--line); color: var(--g2); font-size: .8rem; }
+.chip.part { color: var(--g1); background: var(--g6); }
+.task-notes { margin: 4px 0 0; color: var(--muted); font-size: .9rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.task-actions { display: flex; gap: 2px; }
+.task-actions .icon-btn { width: 34px; height: 34px; border-color: transparent; }
+.task-actions .icon-btn.danger:hover { color: var(--danger); }
+.task-form { margin-bottom: 14px; }
+.task-form .field { margin-bottom: 12px; }
+.task-form .row { display: flex; gap: 10px; }
+.task-form .row > .field { flex: 1; min-width: 0; }
+.switch { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; cursor: pointer; }
+.switch input { width: 18px; height: 18px; accent-color: var(--g4); }
+.card .field { margin-bottom: 12px; }
